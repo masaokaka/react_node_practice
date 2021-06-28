@@ -13,7 +13,7 @@ function App() {
     fetch("/todos")
       .then((res) => res.json())
       .then((data) => {
-        setTodos(data.todos);
+        setTodos(data);
       });
   }, []);
 
@@ -27,10 +27,10 @@ function App() {
       },
       body: JSON.stringify(body),
     })
-      .then((res) => res.json())
+      .then((res) => console.log(res))
       .then((data) => {
         console.log(data);
-        setTodos([...data.todos]);
+        setTodos([...todos, data]);
       })
       .catch((err) => {
         console.log(err);

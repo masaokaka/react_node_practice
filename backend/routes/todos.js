@@ -1,15 +1,29 @@
 var express = require("express");
 var router = express.Router();
+var mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const data = { todos: [] };
+//スキーマ
+const TodoSchema = new Schema({
+  id: String,
+  name: String,
+  done: Boolean,
+});
+
+//モデル
+let TodoModel = mongoose.model("todo", TodoSchema);
 
 router.get("/", function (req, res, next) {
-  res.json(data);
+  TodoModel.find({}, (err, docs) => {
+    res.json(docs);
+  });
 });
 
 router.post("/add", function (req, res, next) {
-  data.todos.push(req.body);
-  res.json(data);
+  let todo = new TodoModel(req.body);
+  todo.save().then((todo) => {
+    res.json(todo);
+  });
 });
 
 router.post("/update", function (req, res, next) {
@@ -18,7 +32,6 @@ router.post("/update", function (req, res, next) {
       todo.done = !todo.done;
     }
   });
-  console.log(data);
   res.json(data);
 });
 
