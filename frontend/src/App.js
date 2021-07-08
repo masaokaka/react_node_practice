@@ -7,7 +7,7 @@ import axios from "axios";
 function App() {
   const [todos, setTodos] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/todos").then((res) => {
+    axios.get("http://54.249.21.234:3001/todos").then((res) => {
       setTodos(res.data.todos);
     });
   }, []);
@@ -16,7 +16,7 @@ function App() {
   const addNewTodo = (newTodo) => {
     let todo = { name: newTodo, done: false };
     axios
-      .post("http://localhost:3001/todos/add", { todo })
+      .post("http://54.249.21.234:3001/todos/add", { todo })
       .then((res) => {
         setTodos([...todos, res.data.todo]);
       })
@@ -28,7 +28,7 @@ function App() {
   //todo削除
   const deleteTodo = (_id) => {
     axios
-      .post("http://localhost:3001/todos/delete", { _id })
+      .post("http://54.249.21.234:3001/todos/delete", { _id })
       .then((res) => {
         let newTodos = todos.filter((todo) => todo._id !== res.data._id);
         setTodos([...newTodos]);
@@ -48,7 +48,7 @@ function App() {
       }
     });
     axios
-      .post("http://localhost:3001/todos/update", { newTodo })
+      .post("http://54.249.21.234:3001/todos/update", { newTodo })
       .then((res) => {
         let newTodos = todos.map((todo) => {
           if (res.data._id === todo._id) {
