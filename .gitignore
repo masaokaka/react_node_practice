@@ -26,5 +26,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#vscode
-.vscode
+#pem
+ec2-masterclass.pem
