@@ -4,7 +4,7 @@ import { AddTodo } from "./components/AddTodo";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const IPAddress = "https://test-lb-995685607.ap-northeast-1.elb.amazonaws.com";
+const IPAddress = "https://test.todo-app.net";
 
 function App() {
   const [todos, setTodos] = useState([]);
