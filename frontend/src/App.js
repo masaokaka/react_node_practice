@@ -4,10 +4,12 @@ import { AddTodo } from "./components/AddTodo";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const IPAddress = "http://test-lb-995685607.ap-northeast-1.elb.amazonaws.com";
+
 function App() {
   const [todos, setTodos] = useState([]);
   useEffect(() => {
-    axios.get("http://54.249.21.234:3001/todos").then((res) => {
+    axios.get(`${IPAddress}/todos`).then((res) => {
       setTodos(res.data.todos);
     });
   }, []);
@@ -16,7 +18,7 @@ function App() {
   const addNewTodo = (newTodo) => {
     let todo = { name: newTodo, done: false };
     axios
-      .post("http://54.249.21.234:3001/todos/add", { todo })
+      .post(`${IPAddress}/todos/add`, { todo })
       .then((res) => {
         setTodos([...todos, res.data.todo]);
       })
@@ -28,7 +30,7 @@ function App() {
   //todo削除
   const deleteTodo = (_id) => {
     axios
-      .post("http://54.249.21.234:3001/todos/delete", { _id })
+      .post(`${IPAddress}/todos/delete`, { _id })
       .then((res) => {
         let newTodos = todos.filter((todo) => todo._id !== res.data._id);
         setTodos([...newTodos]);
@@ -48,7 +50,7 @@ function App() {
       }
     });
     axios
-      .post("http://54.249.21.234:3001/todos/update", { newTodo })
+      .post(`${IPAddress}/todos/update`, { newTodo })
       .then((res) => {
         let newTodos = todos.map((todo) => {
           if (res.data._id === todo._id) {
